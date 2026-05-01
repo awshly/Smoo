@@ -35,12 +35,11 @@ const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 const prefixFilePath = path.join(__dirname, 'commands', 'prefixes.json');
 
-// cache prefixes (avoid repeated sync reads)
 let prefixes = {};
 
 function updateActivity(prefix) {
   console.log(`Setting activity to: ${prefix}help`);
-  client.user.setActivity(`${prefix}help`, { type: 0 }); // 0 = PLAYING
+  client.user.setActivity(`${prefix}help`, { type: 0 });
 }
 
 for (const folder of commandFolders) {
@@ -98,7 +97,6 @@ const isExempt = member =>
   member.permissions.has(PermissionsBitField.Flags.Administrator) ||
   member.id === member.guild.ownerId;
 
-// SLASH COMMANDS
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return;
 
@@ -184,3 +182,4 @@ client.once(Events.ClientReady, client => {
 });
 
 client.login(token);
+
